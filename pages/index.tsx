@@ -2,14 +2,34 @@ import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
-    <div className="grid min-h-screen gap-10 bg-slate-400 px-20 py-20">
+    <form className="flex flex-col space-y-2 p-5">
+      <input
+        type="text"
+        required
+        placeholder="Username"
+        className="peer rounded-md border border-gray-400 p-1"
+      ></input>
+      <span className="hidden peer-invalid:block peer-invalid:text-red-500">
+        This input is invalid
+      </span>
+      <span className="hidden peer-valid:block peer-valid:text-teal-500">
+        오! 멋진 이름이네요
+      </span>
+      <input type="submit" value="Login"></input>
+    </form>
+  );
+};
+
+export default Home;
+/*
+<div className="grid min-h-screen gap-10 bg-slate-400 px-20 py-20">
       <div className="rounded-3xl bg-white p-6 shadow-xl">
         <span className="text-2xl font-semibold">Select Item</span>
         <ul>
           {[1, 2, 3, 4, 5].map((i) => (
             <div
               key={i}
-              className="first:bg-blue-500 my-2 flex justify-between  "
+              className="my-2 flex justify-between first:bg-blue-500  "
             >
               <span className="text-gray-500">Grey Chair</span>
               <span className="font-semibold">$19</span>
@@ -30,7 +50,7 @@ const Home: NextPage = () => {
           Checkout
         </button>
       </div>
-      <div className="overflow-hidden rounded-3xl bg-white shadow-xl">
+      <div className="group overflow-hidden rounded-3xl bg-white shadow-xl">
         <div className="bg-blue-500 p-6 pb-14">
           <span className="text-2xl text-white">Profile</span>
         </div>
@@ -40,7 +60,7 @@ const Home: NextPage = () => {
               <span className="text-xs text-gray-500">Orders</span>
               <span className="font-medium">340</span>
             </div>
-            <div className="h-24 w-24 rounded-full bg-zinc-300" />
+            <div className="h-24 w-24 rounded-full bg-zinc-300 transition-colors group-hover:bg-red-400" />
             <div className="flex flex-col items-center">
               <span className="text-xs text-gray-500">Spent</span>
               <span className="font-medium">$340</span>
@@ -89,7 +109,4 @@ const Home: NextPage = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-export default Home;
+ */
