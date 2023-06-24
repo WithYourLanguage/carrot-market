@@ -2,20 +2,8 @@ import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex flex-col space-y-2 p-5">
-      <ul>
-        <li>Hi</li>
-        <li>Hi</li>
-        <li>Hi</li>
-      </ul>
-    </div>
-  );
-};
-
-export default Home;
-/*
-<div className="grid min-h-screen gap-10 bg-slate-400 px-20 py-20">
-      <div className="rounded-3xl bg-white p-6 shadow-xl">
+    <div className="grid min-h-screen gap-10 bg-slate-400 px-20 py-20">
+      <div className="rounded-3xl bg-white  p-6 shadow-xl sm:bg-red-500 md:bg-teal-400 2xl:bg-pink-400 lg:bg-indigo-400 xl:bg-yellow-400">
         <span className="text-2xl font-semibold">Select Item</span>
         <ul>
           {[1, 2, 3, 4, 5].map((i) => (
@@ -101,4 +89,10 @@ export default Home;
         </div>
       </div>
     </div>
+  );
+};
+
+export default Home;
+/*
+
  */
