@@ -56,21 +56,7 @@ const Upload: NextPage = () => {
             <input className="hidden" type="file" />
           </label>
         </div>
-        <Input
-          register={register("name", { required: true })}
-          required
-          label="Name"
-          name="name"
-          type="text"
-        />
-        <Input
-          register={register("price", { required: true })}
-          required
-          label="Price"
-          name="price"
-          type="text"
-          kind="price"
-        />
+
         <TextArea
           register={register("description", { required: true })}
           name="description"
