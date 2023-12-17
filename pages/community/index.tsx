@@ -2,29 +2,38 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import FloatingButton from "@components/floating-button";
 import Layout from "@components/layout";
-import useSwr from "swr";
+import useSWR from "swr";
 import { Post, User } from "@prisma/client";
+import useCoords from "@libs/client/useCoords";
+import { useEffect } from "react";
 
 interface PostWithUser extends Post {
   user: User;
   _count: {
     wondering: number;
-    answer: number;
+    answers: number;
   };
 }
 
-interface PostResponse {
+interface PostsResponse {
   ok: boolean;
   posts: PostWithUser[];
 }
 
 const Community: NextPage = () => {
-  const { data } = useSwr<PostResponse>(`/api/posts`);
+  const { latitude, longitude } = useCoords();
+  console.log(latitude, longitude);
+  const { data } = useSWR<PostsResponse>(
+    latitude && longitude
+      ? `/api/posts?latitude=${latitude}&longitude=${longitude}`
+      : null
+  );
+
   return (
     <Layout hasTabBar title="동네생활">
       <div className="space-y-4 divide-y-[2px]">
         {data?.posts?.map((post) => (
-          <Link legacyBehavior key={post.id} href={`/community/${post.id}`}>
+          <Link key={post.id} href={`/community/${post.id}`}>
             <a className="flex cursor-pointer flex-col items-start pt-4">
               <span className="ml-4 flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
                 동네질문
@@ -70,7 +79,7 @@ const Community: NextPage = () => {
                       d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                     ></path>
                   </svg>
-                  <span>답변 {post._count.answer}</span>
+                  <span>답변 {post._count.answers}</span>
                 </span>
               </div>
             </a>

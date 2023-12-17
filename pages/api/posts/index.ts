@@ -7,13 +7,11 @@ async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>
 ) {
-  const {
-    body: { question, latitude, longitude },
-    session: { user },
-  } = req;
   if (req.method === "POST") {
-    console.log("GET 요청 도착");
-    console.log(user);
+    const {
+      body: { question, latitude, longitude },
+      session: { user },
+    } = req;
     const post = await client.post.create({
       data: {
         question,
@@ -32,6 +30,16 @@ async function handler(
     });
   }
   if (req.method === "GET") {
+    const {
+      query: { latitude, longitude },
+    } = req;
+    if (latitude === undefined || longitude === undefined) {
+      console.log(latitude, longitude, "return됨.");
+      return;
+    }
+    console.log(latitude, longitude, "return 되지 않음.");
+    const parsedLatitude = parseFloat(latitude.toString());
+    const parsedLongitue = parseFloat(longitude.toString());
     const posts = await client.post.findMany({
       include: {
         user: {
@@ -46,6 +54,16 @@ async function handler(
             wondering: true,
             answers: true,
           },
+        },
+      },
+      where: {
+        latitude: {
+          gte: parsedLatitude - 0.01,
+          lte: parsedLatitude + 0.01,
+        },
+        longitude: {
+          gte: parsedLongitue - 0.01,
+          lte: parsedLongitue + 0.01,
         },
       },
     });
